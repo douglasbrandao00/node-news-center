@@ -5,6 +5,17 @@
 			<title>Formulário de cadastro de Notícia</title>
 		</head>
 	<body>
+
+		<% if(validacao){ %>
+			<ul>
+				<% for(var i = 0; i < validacao.length; i++){ %>
+					<li>
+						<%= validacao[i].msg %>
+					</li>
+				<% } %>
+			</ul>
+		<% } %>
+
 		<h1>Adicionar Notícia</h1><br>
 		<form action="/admin/save" method="post">
 			<label>Título da Notícia</label><br>

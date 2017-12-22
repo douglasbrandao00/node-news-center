@@ -1,6 +1,6 @@
 module.exports = (application) => {
   application.get('/admin', (req, res) => {
-    return res.render('admin/form_add_news');
+    return res.render('admin/form_add_news', {validacao: {}});
   });
 
   application.post('/admin/save', (req, res) => {
@@ -9,6 +9,11 @@ module.exports = (application) => {
     req.assert('autor'        , 'autor é obrigatorio').notEmpty();
     req.assert('data_noticia' , 'data_noticia é obrigatorio').notEmpty();
 
+    var erros = req.validationErrors();
+
+        if(erros){
+            return res.render('admin/form_add_news', {validacao: erros});
+        }
 		const connection = application.config.dbConnection();
 		let newsModel = new application.app.models.NoticiasDAO;
 
